@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 
 // Imports the application's Firebase configuration using the .env file
 const firebaseConfig = {
@@ -12,3 +13,10 @@ const firebaseConfig = {
 
 // Initializing Firebase with the configuration.
 const app = initializeApp(firebaseConfig);
+
+// This variable is used as a reference to the Firestore service.
+export const db = getFirestore(app);
+
+if (process.env.NODE_ENV == "development") {
+  connectFirestoreEmulator(db, "127.0.0.1", 8080);
+}
